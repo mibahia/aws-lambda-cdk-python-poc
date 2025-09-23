@@ -1,9 +1,26 @@
 
-# Welcome to your CDK Python project!
+# This is a template for a CDK Python project
 
-This is a blank project for CDK development with Python.
+### Why use CDK
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+Creating infrastructure by interacting by clicking through the several options on the AWS website is not scalable and error prone. 
+
+CDK draws from the "infrastructure as code" framework, ultimately resolving this problem. CDK allows for infrastructure to be created using code (e.g., Python, Typescript or Go), and all the benefits that come with it: the ability to use controlflow, git and auto-complete.
+
+CDK compiles code into a CloudFormation template, which is then used by AWS to create the required infrastructure.
+
+### About this project
+
+This project is a CDK proof of concept written in Python. It downloads a dataset from url and uploads it to a s3 bucket.
+
+### Getting started
+
+To use this infrastructure you'll need to have:
+
+1. AWS account
+2. AWS CLI
+3. AWS CDK
+4. Python
 
 This project is set up like a standard Python project.  The initialization
 process also creates a virtualenv within this project, stored under the `.venv`
@@ -43,11 +60,21 @@ At this point you can now synthesize the CloudFormation template for this code.
 $ cdk synth
 ```
 
-To add additional dependencies, for example other CDK libraries, just add
-them to your `setup.py` file and rerun the `pip install -r requirements.txt`
-command.
+There are a few manual steps. In `app.py` add you AWS account id and region. 
 
-## Useful commands
+The `cdk.json` file tells the CDK Toolkit how to execute your app. In the `UploadRawData` stack change the name of you s3 bucket. 
+
+The first step is to run `cdk bootstrap` which prepares the aws environment and create resources (CloudFormation stack, s3 buckets, sets up trust relationships)to prior to deployment. Only needed one time, after that we just need cdk deploy.
+
+To deploy this lambda run `cdk deploy`. If the deployment is successful, you can test the lambda on AWS, before invoking it. 
+
+To invoke the lambda locally you can run `bash invoke.sh`. You'll need to change the profile, and you may want to test it on a different url. The payload param is the handler event.
+
+#### What this project doesn't have
+
+No endpoint, invoking only happens locally/manually. API Gateway needs to be added.
+
+#### Useful commands
 
  * `cdk ls`          list all stacks in the app
  * `cdk synth`       emits the synthesized CloudFormation template
@@ -55,4 +82,4 @@ command.
  * `cdk diff`        compare deployed stack with current state
  * `cdk docs`        open CDK documentation
 
-Enjoy!
+Have fun!
