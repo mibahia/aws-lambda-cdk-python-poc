@@ -60,9 +60,9 @@ At this point you can now synthesize the CloudFormation template for this code.
 $ cdk synth
 ```
 
-There are a few manual steps. In `app.py` add you AWS account id and region. 
-
 The `cdk.json` file tells the CDK Toolkit how to execute your app. In the `UploadRawData` stack change the name of you s3 bucket. 
+
+There are a few manual steps. In `app.py` add you AWS account id and region. 
 
 The first step is to run `cdk bootstrap` which prepares the aws environment and create resources (CloudFormation stack, s3 buckets, sets up trust relationships)to prior to deployment. Only needed one time, after that we just need cdk deploy.
 
