@@ -4,7 +4,8 @@ from typing import Any
 from src.aws_helpers import upload_file_to_s3
 from src.get_data_from_url import get_data_from_url
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger()
+logger.setLevel("INFO")
 
 
 def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
@@ -18,7 +19,9 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
 
         upload_file_to_s3(bucket=bucket, file_key=file_key, response=response)
 
-        logger.info(f"File {file_key} sucessfully uploaded to S3 bucket {bucket}")
+        logger.info(
+            f"File {file_key} from '{event['url']}' sucessfully uploaded to S3 bucket {bucket}"
+        )
         return {
             "statusCode": 200,
             "message": f"File {file_key} sucessfully uploaded to S3 bucket {bucket}",
