@@ -24,9 +24,6 @@ class UploadRawData(Stack):
             handler="handler.handler",
             code=_lambda.Code.from_asset("lambda/"),  # Getting the necessary code
             timeout=Duration.minutes(5),  # Set the timeout
-            environment={
-                "LOG_LEVEL": "INFO"  # Set an environment variable for the Lambda function
-            },
             architecture=_lambda.Architecture.ARM_64,  # Lighter, cheaper version - getting errors without param
         )
 
