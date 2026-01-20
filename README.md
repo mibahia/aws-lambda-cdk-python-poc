@@ -68,6 +68,8 @@ The first step is to run `cdk bootstrap` which prepares the aws environment and 
 
 To deploy this lambda run `cdk deploy`. If the deployment is successful, you can test the lambda on AWS, before invoking it. 
 
+Use -c flag to add a env variable (e.g., staging / prod)
+
 To invoke the lambda locally you can run `bash invoke.sh`. You'll need to change the profile, and you may want to test it on a different url. The payload param is the handler event.
 
 #### What this project doesn't have
