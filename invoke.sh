@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export AWS_REGION=eu-west-2
+
 aws lambda invoke \
   --function-name upload-raw-data-staging \
   --cli-binary-format raw-in-base64-out \
