@@ -8,9 +8,7 @@ from construct.url_to_s3 import UrlToS3Lambda
 
 
 class UploadRawData(Stack):
-    def __init__(
-        self, scope: Construct, construct_id: str, env_name: str, **kwargs
-    ) -> None:
+    def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
         bucket = s3.Bucket.from_bucket_name(self, "demography_bucket", "gla-demography")
