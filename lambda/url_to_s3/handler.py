@@ -14,15 +14,15 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
     try:
         bucket = os.environ["BUCKET_NAME"]
 
-        url = event["url"]
-        file_key = event["file_key"]
+        url = event.pop("url")
+        file_key = event.pop("file_key")
 
-        response = get_data_from_url(url=url)
+        response = get_data_from_url(url=url, **event)
 
         upload_file_to_s3(bucket=bucket, file_key=file_key, response=response)
 
         logger.info(
-            f"File {file_key} from '{event['url']}' sucessfully uploaded to S3 bucket {bucket}"
+            f"File {file_key} from '{url}' sucessfully uploaded to S3 bucket {bucket}"
         )
         return {
             "statusCode": 200,
