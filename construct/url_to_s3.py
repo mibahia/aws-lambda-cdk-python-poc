@@ -1,4 +1,4 @@
-from aws_cdk import BundlingOptions, Duration
+from aws_cdk import BundlingOptions, DockerImage, Duration
 from aws_cdk import aws_lambda as _lambda
 from constructs import Construct
 
@@ -15,7 +15,7 @@ class UrlToS3Lambda(Construct):
             code=_lambda.Code.from_asset(
                 "lambda/",
                 bundling=BundlingOptions(
-                    image=_lambda.Runtime.PYTHON_3_13.bundling_image,
+                    image=DockerImage.from_registry("python:3.13-slim-bookworm"),
                     command=[
                         "bash",
                         "-c",
