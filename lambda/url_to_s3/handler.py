@@ -2,8 +2,8 @@ import logging
 import os
 from typing import Any
 
-from src.aws_helpers import upload_file_to_s3
-from src.get_data_from_url import get_data_from_url
+from core_functions.aws_helpers.utils import upload_file_to_s3
+from get_data_from_url import get_data_from_url
 
 logger = logging.getLogger()
 logger.setLevel("INFO")
