@@ -2,8 +2,8 @@ import logging
 import os
 from typing import Any
 
-from core_functions.aws_helpers.utils import upload_file_to_s3
-from get_data_from_url import get_data_from_url
+from src.aws_helpers import upload_file_to_s3
+from src.get_data_from_url import get_data_from_url
 
 logger = logging.getLogger()
 logger.setLevel("INFO")
@@ -31,3 +31,16 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
     except Exception as e:
         logger.error(f"Error uploading file: {e}")
         raise
+
+
+# if __name__ == "__main__":
+#     os.environ["BUCKET_NAME"] = "gla-demography"
+#     handler(
+#         event={
+#             "url": "https://fingertips.phe.org.uk/api/all_data/csv/by_indicator_id?",
+#             "file_key": "fingertips2.csv",
+#             "indicator_ids": "20601",
+#             "area_type_id": "6",
+#         },
+#         context=None,
+#     )

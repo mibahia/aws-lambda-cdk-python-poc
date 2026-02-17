@@ -11,16 +11,16 @@ class UrlToS3Lambda(Construct):
             self,
             "LambdaFunction",
             function_name=id,
-            runtime=_lambda.Runtime.PYTHON_3_13,
+            runtime=_lambda.Runtime.PYTHON_3_11,
             code=_lambda.Code.from_asset(
-                "lambda/",
+                "src/",
                 bundling=BundlingOptions(
                     image=DockerImage.from_registry("python:3.13-slim-bookworm"),
                     command=[
                         "bash",
                         "-c",
-                        "cp -r url_to_s3/* /asset-output && "
-                        "cp -r core_functions /asset-output",
+                        "cp -r get_data_from_url.py /asset-output && "
+                        "cp aws_helpers.py /asset-output",
                     ],
                 ),
             ),
