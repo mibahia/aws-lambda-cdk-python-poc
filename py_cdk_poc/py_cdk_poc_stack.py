@@ -4,6 +4,7 @@ from aws_cdk import (
 from aws_cdk import aws_s3 as s3
 from constructs import Construct
 
+from construct.s3_to_db import S3ToDBLambda
 from construct.url_to_s3 import UrlToS3Lambda
 
 
@@ -14,3 +15,4 @@ class UploadRawData(Stack):
         bucket = s3.Bucket.from_bucket_name(self, "demography_bucket", "gla-demography")
 
         UrlToS3Lambda(self, "UrlToS3Lambda", bucket=bucket)
+        S3ToDBLambda(self, "S3ToDBLambda", bucket=bucket)

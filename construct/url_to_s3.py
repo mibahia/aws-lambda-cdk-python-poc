@@ -15,12 +15,13 @@ class UrlToS3Lambda(Construct):
             code=_lambda.Code.from_asset(
                 "src/",
                 bundling=BundlingOptions(
-                    image=DockerImage.from_registry("python:3.13-slim-bookworm"),
+                    image=DockerImage.from_registry(
+                        "public.ecr.aws/sam/build-python3.11"
+                    ),
                     command=[
                         "bash",
                         "-c",
-                        "cp -r get_data_from_url.py /asset-output && "
-                        "cp aws_helpers.py /asset-output",
+                        "cp get_data_from_url.py aws_helpers.py handler.py /asset-output",
                     ],
                 ),
             ),
