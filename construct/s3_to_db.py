@@ -1,4 +1,4 @@
-from aws_cdk import BundlingOptions, DockerImage, Duration
+from aws_cdk import Duration
 from aws_cdk import aws_lambda as _lambda
 from constructs import Construct
 
@@ -7,39 +7,15 @@ class S3ToDBLambda(Construct):
     def __init__(self, scope: Construct, id: str, bucket: str) -> None:
         super().__init__(scope, id)
 
-        dependencies_layer = _lambda.LayerVersion(
+        lambda_fn = _lambda.DockerImageFunction(
             self,
-            "DependenciesLayer",
-            compatible_runtimes=[_lambda.Runtime.PYTHON_3_11],
-            compatible_architectures=[_lambda.Architecture.ARM_64],
-            code=_lambda.Code.from_asset(
-                "src/lib",
-            ),
-        )
-
-        lambda_fn = _lambda.Function(
-            self,
-            "LambdaFunction",
+            "S3ToDBLambda",
             function_name=id,
-            runtime=_lambda.Runtime.PYTHON_3_11,
-            code=_lambda.Code.from_asset(
-                "src/",
-                bundling=BundlingOptions(
-                    image=DockerImage.from_registry(
-                        "public.ecr.aws/sam/build-python3.11"
-                    ),
-                    command=[
-                        "bash",
-                        "-c",
-                        "cp aws_helpers.py /asset-output && cp -r s3_to_db/* /asset-output",
-                    ],
-                ),
-            ),
-            handler="handler.handler",
-            timeout=Duration.minutes(5),
-            architecture=_lambda.Architecture.ARM_64,
+            code=_lambda.DockerImageCode.from_image_asset("./lambdas/s3_to_db"),
+            timeout=Duration.minutes(10),
+            memory_size=1200,
+            architecture=_lambda.Architecture.X86_64,
             environment={"BUCKET_NAME": bucket.bucket_name},
-            layers=[dependencies_layer],
         )
 
-        bucket.grant_write(lambda_fn)
+        bucket.grant_read(lambda_fn)

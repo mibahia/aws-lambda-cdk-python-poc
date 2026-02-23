@@ -4,7 +4,8 @@ from io import BytesIO
 import pandas as pd
 import pandera.pandas as pa
 from pandera.typing import DataFrame
-from schemas.life_expectancy_schema import LifeExpectancy
+
+from src.schemas.life_expectancy_schema import LifeExpectancySchema
 
 
 class LifeExpectancy:
@@ -13,12 +14,14 @@ class LifeExpectancy:
 
     def parse(self):
         with BytesIO(self.response) as bytes_file:
-            excel = pd.read_excel(bytes_file, sheet_name="1", header=5)
+            excel = pd.read_excel(
+                bytes_file, sheet_name="1", header=5, engine="openpyxl"
+            )
 
         return excel
 
     @pa.check_types
-    def clean(self, excel: pd.DataFrame) -> DataFrame[LifeExpectancy]:
+    def clean(self, excel: pd.DataFrame) -> DataFrame[LifeExpectancySchema]:
         data = excel.rename(columns=lambda x: x.replace(" ", "_").lower().strip())
         str_cols = [
             "period",

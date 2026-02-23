@@ -9,7 +9,7 @@ app = cdk.App()
 UploadRawData(
     app,
     "upload-raw-data",  # this is the stack name
-    env=cdk.Environment(account="920120425102", region="eu-west-2"),
+    env=cdk.Environment(account="", region="eu-west-2"),
 )
 
 app.synth()
