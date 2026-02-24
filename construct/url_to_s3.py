@@ -1,4 +1,4 @@
-from aws_cdk import BundlingOptions, DockerImage, Duration
+from aws_cdk import Duration
 from aws_cdk import aws_lambda as _lambda
 from constructs import Construct
 
@@ -12,6 +12,9 @@ class UrlToS3Lambda(Construct):
             "LambdaFunction",
             function_name=id,
             runtime=_lambda.Runtime.PYTHON_3_11,
+<<<<<<< HEAD
+            code=_lambda.Code.from_asset("lambdas/url_to_s3/"),
+=======
             code=_lambda.Code.from_asset(
                 "src/",
                 bundling=BundlingOptions(
@@ -24,6 +27,7 @@ class UrlToS3Lambda(Construct):
                     ],
                 ),
             ),
+>>>>>>> origin/main
             handler="handler.handler",
             timeout=Duration.minutes(5),
             architecture=_lambda.Architecture.ARM_64,
