@@ -2,13 +2,8 @@ import logging
 import os
 from typing import Any
 
-<<<<<<<< HEAD:lambdas/url_to_s3/handler.py
 from aws_helpers import upload_file_to_s3
 from get_data_from_url import get_data_from_url
-========
-from src.aws_helpers import upload_file_to_s3
-from src.get_data_from_url import get_data_from_url
->>>>>>>> origin/main:src/handler.py
 
 logger = logging.getLogger()
 logger.setLevel("INFO")
