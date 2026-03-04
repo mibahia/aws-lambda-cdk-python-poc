@@ -4,7 +4,7 @@ from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 
-def get_data_from_url(url: str, **kwargs) -> bytes:
+def get_data_from_url(url: str, **kwargs) -> bytes | None:
     if kwargs:
         url = url + urllib.parse.urlencode(kwargs)
 
